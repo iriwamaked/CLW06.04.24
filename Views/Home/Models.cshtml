@@ -1,0 +1,76 @@
+﻿@model ASP1.Models.Home.HomeModelsPageModel;
+@{
+    ViewData["Title"] = "Models";
+}
+
+<div class="text-center">
+    <h1 class="display-4">@Model.PageTitle</h1>
+   
+</div>
+
+<p>
+    З точки зору MVC, як патерну моделювання, Модель - це архітектурна частина проекту,
+    яка відповідає за "постачання" даних.
+    <br/>
+    В ASP дещо відмінне розуміння моделей - задачі постачання даних 
+    делегуються "контексту" даних (DataContext), тоді як самі моделі - 
+    це класи (типи даних), за допомогою яких дані передаються між різними частинами системи.
+    <br/>
+
+</p>
+<p>
+    У відповідності до тих частини системи, між якими передаються дані, моделі умовно розрізняють
+    як:
+    <ul>
+        <li>Моделі представлень (View Models / Page Models) - модель для відображення сторінок. 
+            Це набір даних, необхідний та достатній для заповнення сторінки та її відображення (дані 
+            про користувача, вибрані товари, акційній пропозиції - усе разом).
+            Зазвичай Page Models прив'язана до сторінки. Передбачає можливість віддалення (Page Model) запакувати в JSON
+            та направити. Бажано робити Page Model серіалізованими (просто трансфер даних, який спокійно можна
+            запакувати в JSON та направити на віддалену VIEW)
+        </li>
+        <li>Моделі форм (Form Models) - сукупність даних, що їх передає HTML форма і обробляється контролером.</li>
+        <li>Моделі даних (Еntities) - класи для відображення (ORM) вихідних даних (від БД чи JSON API тощо)</li>
+    </ul>
+</p>
+<p>
+    Моделі представлень (Page Models). Оголошуємо класи у розділі (папці) "Models".
+    У контролері у відповідному Actionі (методі) створюємо і заповнюємо обєкт належного класу (model)
+    та передаємо його в інструкції <code>return View(model)<code>.
+    У представленны на початку документу зазначаємо тип моделі <br/>
+    <code>&commat;model ASP1.Models.Home.HomeModelsPageModel;</code></br>
+    і в подальшому коді переданий об'єкт (model) доступний через ключове слово <code>Model</code></br>
+    Якщо потрібно щось вивести пишемо >&commat;Model, якщо використати в підрахунках - просто Model без інструкції виведення.
+ </p>
+
+    <p>Моделі форм слугують для передання даних від HTML-форм, це узгодження типів даних
+        (в НTML всі дані текстові, у С# - ні), а також імен полів (HTML дозволяє імена накшталт "field-name",
+        які у С# є неприйнятними)
+    </p>
+    <form asp-action="Models" method="post"> 
+        <div class="row">
+            <div class="col">
+                <div class="input-group mb-3">
+  <span class="input-group-text" id="username-addon1"><i class="bi bi-person-fill"></i></span>
+  <input type="text" class="form-control" placeholder="Введіть ім'я" 
+  name="signup-username" aria-label="Username" aria-describedby="username-addon1">
+</div>
+</div>
+            <div class="col">
+                 <div class="col"><div class="input-group mb-3">
+  <span class="input-group-text" id="user-email-addon1"><i class="bi bi-person-fill"></i></span>
+  <input type="text" class="form-control" placeholder="Електронна пошта"
+  name="signup-email" aria-label="User-email" aria-describedby="user-email-addon1">
+            </div>
+            </div>
+            </div>
+        <div class="row">
+            <button type="submit" class="btn btn-outline-primary">Реєстрація</button>
+        </div>
+        </form>
+        @if(Model.FormModel?.UserName!=null)
+        {
+            <p>Ви ввели: Ім'я: @Model.FormModel.UserName
+               Пошта: @Model.FormModel.UserEmail
+            </p>
+        }

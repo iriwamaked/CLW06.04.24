@@ -1,0 +1,51 @@
+﻿@*
+   
+*@
+@{
+    ViewData["Title"] = "Data";
+}
+
+<div>
+    <h1>Робота з даними. Бази даних.</h1>
+</div>
+<p>
+    Використовуємо Entityframework <br/>
+    Microsoft.EntityFrameworkCore<br/>
+    Microsoft.EntityFrameworkCoreTools - використовується в основному для управління міграціями<br/>
+    Microsoft.EntityFrameworkCoreSQlServer - драйвера для сервера<br/>
+</p>
+<p>
+    Контекст даних - окремий архітектурний шар проєкту, який перетворює дані 
+    з джерела даних (БД, API, файлове сховище) у програмну форму - об'єкти. 
+ </p>
+ <p>
+     Контекст состоит из нескольких частей:
+     <ul>
+         <li>
+             <b>Entities</b> - сущности (модели данних, DTO-Data Transfer Objects, ORM) - об'єкти 
+             (класи), призначені для відображення даних у програму.
+         </li>
+         <li>
+             <b>DAO (Data Access Objects)</b> - об'єкти-сервіси з методами, призначеними для роботи з даними.
+         <li>
+          <li>
+              Context (DAL - Data Access Layer) - "центральний представник" цього шару, який збирає до себе образ 
+              (представлення,відображення) джерела даних (ORM - Object Relation Mapping)
+          </li>
+     </ul>
+ </p>
+ <p>
+     (Entity) User {Id, Name, ...}<br/>
+     (Entity) Product {Id, Name, ...}<br/>
+     (Context) DataContext {Users, Products, ....}<br/>
+     (DAO) UserDao {authenticate(login,password), getCart()}<br/>
+ </p>
+ <p>
+     Миграции - это иснтрукции для воссоздания контекста (БД), а также для 
+     возможности "отката" сделанных изменений. (как ГитХаб для БД, но сохраняется только структура БД, данные не сохраняются в миграции)<br/>
+      (PM Console): Tools=>NuGet Package Manager => Package Manager Console) <br/>
+     Создание миграции: <code>Add-Migration Users</code> <br/>
+     По результату должна быть создана директория Migrations и файл с соответстующей миграцией.
+     Примeнение миграции: <code>Update-Database</code>
+     Контроль БД: Tools=>Connect to DataBase (до этого из appsettings скопировать название сервера (localdb)\\MSSQLLocalDB, чтобы руками не вводить)
+ </p>

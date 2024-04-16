@@ -1,0 +1,65 @@
+﻿@model ASP1.Models.Home.SignUp.SignUpPageModel
+
+@{
+    ViewData["Title"] = "Sign Up";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Реєстрація нового користувача</h1>
+</div>
+D:\2. ШАГ Уроки\4. Видео ШАГ С++\15. ASP.NET\ASP1\ASP1
+@if(Model.IsSuccess!=null)
+{
+    <div class="@(Model.IsSuccess ?? false ? "alert alert-success":"alert alert-danger")" role="alert">
+  @Model.Message
+</div>
+}
+
+
+<form asp-action="SingUp" method="post" enctype="multipart/form-data"> 
+        <div class="row">
+            <div class="col">
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="username-addon1"><i class="bi bi-person-fill"></i></span>
+                    <input type="text" class="form-control" placeholder="Введіть ім'я" 
+                             name="signup-username" aria-label="Username" aria-describedby="username-addon1">
+                </div>
+            </div>
+            <div class="col">
+                 <div class="input-group mb-3">
+                    <span class="input-group-text" id="user-email-addon1"><i class="bi bi-person-fill"></i></span>
+                    <input type="text" class="form-control" placeholder="Електронна пошта"
+                            name="signup-email" aria-label="User-email" aria-describedby="user-email-addon1">
+                 </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="input-group mb-3">
+                    <label class = "input-group-text" for="signup-avatar"><i class="bi bi-person-bounding-box"></i></label>
+                    <input type="file" class="form-control" name="signup-avatar" id="signup-avatar"/>
+                </div>
+            </div>
+            <div class="col">
+                <div class="input-group mb-3">
+                <span class="input-group-text" id="birthdate-addon1"><i class="bi bi-cake"></i></span>
+                <input type="date" class="form-control" placeholder="Дата народження" 
+                    name="signup-birthdate" aria-label="Birthdate" aria-describedby="birthdate-addon1">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="form-check">
+                     <input  name="signup-confirm" class="form-check-input" type="checkbox" value="true" id="signup-confirm">
+                     <label class="form-check-label" for="signup-confirm">
+                        Погоджуюсь із правилами сайту
+                     </label>
+                </div>
+             </div>
+            <div class="col">
+                     <button type="submit" class="btn btn-primary">Реєстрація</button>
+            </div>
+        </div>
+
+</form>
